@@ -2,7 +2,7 @@ import { Title } from '@mantine/core';
 import { CodeChallengeMethod, normalizeErrorString } from '@medplum/core';
 import { Logo, SignInForm, useMedplum } from '@medplum/react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { getConfig } from './config';
+import { getConfig, isRegisterEnabled } from './config';
 import { useEffect, useState } from 'react';
 import { showNotification } from '@mantine/notifications';
 import { ClientApplicationSignInForm } from '@medplum/fhirtypes';
@@ -59,7 +59,7 @@ export function OAuthPage(): JSX.Element | null {
     <SignInForm
       onCode={onCode}
       onForgotPassword={() => navigate('/resetpassword')}
-      onRegister={() => navigate('/register')}
+      onRegister={isRegisterEnabled() ? () => navigate('/register') : undefined}
       googleClientId={getConfig().googleClientId}
       clientId={clientId || undefined}
       redirectUri={params.get('redirect_uri') || undefined}

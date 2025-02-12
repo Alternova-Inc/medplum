@@ -14,7 +14,7 @@ import {
 } from '@medplum/react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getConfig } from './config';
+import { getConfig, isRegisterEnabled } from './config';
 
 export function ResetPasswordPage(): JSX.Element {
   const navigate = useNavigate();
@@ -61,9 +61,11 @@ export function ResetPasswordPage(): JSX.Element {
                 error={getErrorsForInput(outcome, 'email')}
               />
               <Group justify="space-between" mt="xl" wrap="nowrap">
+                {isRegisterEnabled() && 
                 <Anchor component="button" type="button" color="dimmed" onClick={() => navigate('/register')} size="xs">
                   Register
                 </Anchor>
+                }
                 <Button type="submit">Reset password</Button>
               </Group>
             </>
